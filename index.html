@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Todo List</h1>
+    
+    <button id="taskButton">Add a task</button>
+    <div id = "counter">No task for now</div>
+
+    <div class="invisible">
+        <div class="todoCard">
+            <textarea class = "task" maxlength = 200 cols="30" rows="12">New Task</textarea>
+            <span class="deleteButton"><i class = "fa fa-trash" aria-hidden = "true"></i></span>
+        </div>
+    </div>
+
+    <div id="todoCards"></div>
+
+    <script>
+        
+        const addButton = document.getElementById("taskButton")
+        const cardsList = document.getElementById("todoCards")
+        const card      = document.getElementsByClassName("todoCard")
+        const count     = document.getElementById("counter")
+        let totalNum   = 1
+        let cardNum    = 0
+
+
+        createCard()
+        addButton.addEventListener("click", function(){createCard()})
+        
+        
+        function createCard(){
+            
+            let newCard = card[0].cloneNode(true)
+            newCard.querySelector(".task").innerText = "Task n°" + totalNum
+            newCard.querySelector(".deleteButton").addEventListener("click", function(){
+                cardsList.removeChild(newCard)
+                updateCount(-1)
+            })
+            cardsList.appendChild(newCard)
+            totalNum++
+            updateCount(1)
+        }
+
+        function updateCount(update){
+            cardNum += update
+            if (cardNum > 0)
+                count.innerText = "Number of tasks : " + cardNum
+            else
+                count.innerText = "No task for now"
+            
+        }
+
+    </script>
+
+</body>
+
+</html>
